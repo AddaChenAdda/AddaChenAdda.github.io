@@ -1,0 +1,150 @@
+/* 在不修改原始html的情況下，此檔案提供額外的樣式增強 */
+
+/* 基本優化 */
+:root {
+  --primary-color: #4a89dc;
+  --primary-light: #5ca9fb;
+  --primary-dark: #2a5caa;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --border-color: #eee;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+/* 優化圖片懶加載 */
+img.lazy {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+img.lazy.loaded {
+  opacity: 1;
+}
+
+img:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* 提升連結樣式 */
+a {
+  border-bottom: 1px dotted rgba(74, 137, 220, 0.5) !important;
+  position: relative;
+}
+
+a:hover {
+  border-bottom: 1px solid var(--primary-dark) !important;
+}
+
+a:focus {
+  outline: 2px solid rgba(74, 137, 220, 0.3);
+  outline-offset: 2px;
+}
+
+/* 外部連結圖示 */
+a[target="_blank"]:after {
+  content: " \f08e";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.7em;
+  position: relative;
+  top: -1px;
+  opacity: 0.7;
+  margin-left: 3px;
+}
+
+/* 頭部布局優化 */
+.header-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-text {
+  flex: 1;
+}
+
+/* 背景動畫 */
+.bg-decoration {
+  animation: gradient 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 中型設備優化 */
+@media screen and (max-width: 992px) {
+  .project-gallery {
+    flex-direction: column;
+  }
+
+  .project-item {
+    width: 100%;
+  }
+}
+
+/* 提升項目hover效果 */
+.profile-summary:hover {
+  background-color: #e8f0fa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.project-tech:hover {
+  background-color: #e0eeff;
+  transform: translateY(-1px);
+}
+
+/* 表格在移動裝置上的優化 */
+@media screen and (max-width: 768px) {
+  .skills-table td {
+    display: block;
+    width: 100% !important;
+  }
+
+  .skills-table td:first-child {
+    text-align: left;
+    margin-top: 10px;
+    font-weight: 600;
+    background-color: #f0f7ff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-right: none;
+  }
+
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-picture {
+    margin-bottom: 15px;
+  }
+}
+
+/* 專案畫廊優化 */
+.project-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.project-gallery .project-item {
+  flex: 1;
+  min-width: 300px;
+}

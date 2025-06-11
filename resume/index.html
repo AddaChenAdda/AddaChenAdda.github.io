@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <title>個人履歷 - Adda Chen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Adda的個人履歷，iOS開發工程師，專長在金融數據圖表深度客製化"
+    />
+    <meta name="theme-color" content="#4a89dc" />
+    <link rel="icon" href="images/image8.png" type="image/png" />
+    <link rel="shortcut icon" href="images/image8.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/image8.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/enhancement.css" />
+    <link rel="stylesheet" href="css/qrcode.css" />
+  </head>
+  <body>
+    <div class="bg-decoration"></div>
+
+    <div id="resume-header" class="container">
+      <!-- 這裡的內容將由 JavaScript 填充 -->
+    </div>
+
+    <div class="container">
+      <p id="profile-summary" class="profile-summary">
+        <!-- 這裡的內容將由 JavaScript 填充 -->
+      </p>
+
+      <table id="skills-table" class="skills-table">
+        <!-- 這裡的內容將由 JavaScript 填充 -->
+      </table>
+    </div>
+
+    <div class="container">
+      <h2>工作經驗</h2>
+      <section id="work-experience" class="work-experience">
+        <!-- 這裡的內容將由 JavaScript 填充 -->
+      </section>
+    </div>
+
+    <!-- 影片展示區塊 -->
+    <div class="video-showcase">
+      <h2>圖表客製化</h2>
+      <div class="videos-row">
+        <!-- 影片內容將由 JavaScript 從 data.js 動態載入 -->
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>個人專案(Side Project)</h2>
+      <div id="personal-projects">
+        <!-- 這裡的內容將由 JavaScript 填充 -->
+      </div>
+    </div>
+
+    <footer id="resume-footer" class="resume-footer">
+      <!-- 這裡的內容將由 JavaScript 填充 -->
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="回到頁面頂端">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/lazyload.js"></script>
+    <script type="text/javascript">
+      // 獲取 JSON 資料並渲染頁面
+      async function fetchResumeData() {
+        console.log("載入履歷資料...");
+
+        try {
+          // 確認 resumeData 是否存在
+          if (window.resumeData && typeof window.resumeData === "object") {
+            renderResume(window.resumeData);
+          } else {
+            throw new Error("資料不存在或格式錯誤");
+          }
+        } catch (error) {
+          console.error("資料渲染時出錯:", error);
+          document.getElementById("resume-header").innerHTML = `
+            <div style="color: red; padding: 20px; text-align: center;">
+              <h3>資料載入錯誤</h3>
+              <p>${error.message}</p>
+              <p>請檢查資料檔案格式。</p>
+            </div>
+          `;
+        }
+      }
+
+      // 渲染履歷資料
+      function renderResume(data) {
+        console.log("開始渲染履歷資料");
+
+        try {
+          if (!data || typeof data !== "object") {
+            throw new Error("無效的資料格式");
+          }
+
+          // 渲染頭部資訊
+          if (data.基本資料) {
+            console.log("渲染頭部資訊");
+            renderHeader(data.基本資料);
+          } else {
+            console.warn("缺少基本資料");
+          }
+
+          // 渲染個人簡介
+          if (data.基本資料 && data.基本資料.簡介) {
+            console.log("渲染個人簡介");
+            const profileSummary = document.getElementById("profile-summary");
+            if (profileSummary) {
+              profileSummary.textContent = data.基本資料.簡介;
+            }
+          } else {
+            console.warn("缺少個人簡介");
+          }
+
+          // 渲染技能表格
+          if (data.技能 && Array.isArray(data.技能)) {
+            console.log("渲染技能表格");
+            renderSkills(data.技能);
+          } else {
+            console.warn("缺少技能資料或格式不正確");
+          }
+
+          // 渲染工作經驗
+          if (data.工作經驗 && Array.isArray(data.工作經驗)) {
+            console.log("渲染工作經驗");
+            renderWorkExperience(data.工作經驗);
+          } else {
+            console.warn("缺少工作經驗資料或格式不正確");
+          }
+
+          // 渲染個人專案
+          if (data.個人專案 && Array.isArray(data.個人專案)) {
+            console.log("渲染個人專案");
+            renderPersonalProjects(data.個人專案);
+          } else {
+            console.warn("缺少個人專案資料或格式不正確");
+          }
+
+          // 渲染影片展示
+          if (data.影片展示 && Array.isArray(data.影片展示)) {
+            console.log("渲染影片展示");
+            renderVideos(data.影片展示);
+          } else {
+            console.warn("缺少影片展示資料或格式不正確");
+          }
+
+          // 渲染頁腳
+          if (data.頁腳 && data.頁腳.版權) {
+            console.log("渲染頁腳");
+            const footerElement = document.getElementById("resume-footer");
+            if (footerElement) {
+              footerElement.innerHTML = `${data.頁腳.版權}`;
+            }
+          } else {
+            console.warn("缺少頁腳資料");
+            // 設定預設頁腳
+            const footerElement = document.getElementById("resume-footer");
+            if (footerElement) {
+              footerElement.innerHTML =
+                "© " + new Date().getFullYear() + " Adda. 保留所有權利。";
+            }
+          }
+
+          console.log("履歷資料渲染完成");
+
+          // 資料載入成功後，為頁面添加 loaded 類別
+          document.body.classList.add("loaded");
+        } catch (error) {
+          console.error("渲染資料時出錯:", error);
+
+          // 顯示錯誤訊息
+          const headerElement = document.getElementById("resume-header");
+          if (headerElement) {
+            headerElement.innerHTML = `<div style="color: red; padding: 20px; text-align: center;">
+              <h3>資料載入錯誤</h3>
+              <p>${error.message}</p>
+              <p>請開啟瀏覽器控制台查看詳細錯誤</p>
+            </div>`;
+          }
+
+          // 即使有錯誤，也顯示頁面
+          document.body.classList.add("loaded");
+        }
+      }
+
+      // 渲染頭部資訊
+      function renderHeader(basicInfo) {
+        const headerContainer = document.getElementById("resume-header");
+
+        // 建立頭部 HTML
+        let headerHTML = `
+          <div class="resume-header">
+            <div class="header-left">
+              <div class="header-container">
+                <img class="profile-picture" alt="${basicInfo.姓名}個人頭像" src="${basicInfo.頭像}" title="${basicInfo.姓名}" loading="lazy" />
+                <h1>
+                  ${basicInfo.姓名}
+                  <span style="font-weight: normal; font-size: 35px">${basicInfo.英文名}</span>
+                </h1>
+              </div>
+        `;
+
+        // 添加左側聯絡資訊（教育相關）
+        basicInfo.聯絡資訊
+          .filter((item) => item.類型 === "教育")
+          .forEach((item) => {
+            headerHTML += `
+            <div class="contact-info">
+              <img alt="${item.類型}圖示" src="${item.圖示}" loading="lazy" />
+              <span>${item.內容}</span>
+            </div>
+          `;
+          });
+
+        headerHTML += `</div><div class="header-right">`;
+
+        // 添加右側聯絡資訊容器
+        headerHTML += `<div class="contact-info-container">`;
+
+        // 添加右側聯絡資訊（非教育相關）
+        basicInfo.聯絡資訊
+          .filter((item) => item.類型 !== "教育")
+          .forEach((item) => {
+            headerHTML += `
+            <div class="contact-info">
+              <img alt="${item.類型}圖示" src="${item.圖示}" loading="lazy" />
+              ${
+                item.連結
+                  ? `<a href="${item.連結}">${item.內容}</a>`
+                  : `<span>${item.內容}</span>`
+              }
+            </div>
+          `;
+          });
+
+        // 關閉聯絡資訊容器
+        headerHTML += `</div>`;
+
+        // 添加 QR Code
+        headerHTML += `
+          <div class="qrcode-container">
+            <img class="qrcode" src="images/qrcode.png" alt="QR Code" title="掃描 QR Code" loading="lazy" />
+          </div>
+        `;
+
+        headerHTML += `</div></div>`;
+
+        // 設定 HTML
+        headerContainer.innerHTML = headerHTML;
+      }
+
+      // 渲染技能表格
+      function renderSkills(skills) {
+        const skillsTable = document.getElementById("skills-table");
+        let skillsHTML = "";
+
+        skills.forEach((skill) => {
+          skillsHTML += `
+            <tr>
+              <td>${skill.類別}</td>
+              <td>${skill.內容}</td>
+            </tr>
+          `;
+        });
+
+        skillsTable.innerHTML = skillsHTML;
+      }
+
+      // 渲染工作經驗
+      function renderWorkExperience(experiences) {
+        const workExperienceSection =
+          document.getElementById("work-experience");
+        let experiencesHTML = "";
+
+        experiences.forEach((exp) => {
+          experiencesHTML += `
+            <div class="experience-item">
+              <div class="experience-header">
+                <h3 class="experience-company">
+                  ${
+                    exp.公司連結
+                      ? `${exp.公司.split(",")[0]}, <a href="${
+                          exp.公司連結
+                        }" target="_blank">${exp.公司.split(",")[1]}</a>${
+                          exp.公司.split(",")[2] || ""
+                        }`
+                      : exp.公司
+                  }
+                </h3>
+                <span class="experience-period">${exp.時間}</span>
+              </div>
+              <div class="experience-content">
+                <div class="experience-details">
+                  <ul>
+          `;
+
+          // 添加職責列表
+          exp.職責.forEach((duty) => {
+            // 處理特殊情況：工具教學連結
+            if (duty.includes("協助新進工程師教育訓練") && exp.工具教學連結) {
+              experiencesHTML += `
+                <li>
+                  ${duty.split("-")[0]} -
+                  <a href="${exp.工具教學連結}" target="_blank">工具教學</a>
+                </li>
+              `;
+            } else {
+              experiencesHTML += `<li>${duty}</li>`;
+            }
+          });
+
+          experiencesHTML += `
+                  </ul>
+                </div>
+          `;
+
+          // 只有當有產品時才添加產品區塊
+          if (exp.產品 && exp.產品.length > 0) {
+            experiencesHTML += `
+                <div class="experience-products">
+                  <h4>負責產品</h4>
+            `;
+
+            // 添加產品列表
+            exp.產品.forEach((product) => {
+              experiencesHTML += `
+                <p>
+                  <a href="${product.連結}" target="_blank">${product.名稱}</a>
+                </p>
+              `;
+            });
+
+            experiencesHTML += `</div>`;
+          }
+
+          experiencesHTML += `
+              </div>
+            </div>
+          `;
+        });
+
+        workExperienceSection.innerHTML = experiencesHTML;
+      }
+
+      // 渲染個人專案
+      function renderPersonalProjects(projects) {
+        const projectsContainer = document.getElementById("personal-projects");
+        let projectsHTML = "";
+
+        // 特殊處理第一個項目
+        if (
+          projects.length > 0 &&
+          projects[0].圖片連結 &&
+          Array.isArray(projects[0].圖片連結)
+        ) {
+          const firstProject = projects[0];
+          projectsHTML += `
+            <div class="project-item">
+              <div class="project-title">
+                ${firstProject.標題} (<a href="${firstProject.圖片連結[0]}" target="_blank">圖一</a>、
+                <a href="${firstProject.圖片連結[1]}" target="_blank">圖二</a>)
+              </div>
+              <div class="project-tech">${firstProject.技術}</div>
+              <div class="project-images">
+                <img src="${firstProject.圖片[0]}" alt="${firstProject.圖片說明[0]}" loading="lazy" />
+                <img src="${firstProject.圖片[1]}" alt="${firstProject.圖片說明[1]}" loading="lazy" />
+              </div>
+            </div>
+          `;
+        }
+
+        // 渲染專案畫廊
+        projectsHTML += '<div class="project-gallery">';
+
+        // 處理剩餘的專案
+        for (let i = 1; i < projects.length; i++) {
+          const project = projects[i];
+          projectsHTML += `
+            <div class="project-item">
+              <div class="project-title">${project.標題}</div>
+              <div class="project-description">${project.描述}</div>
+              <div class="project-image">
+                <a href="${project.圖片連結}" target="_blank">
+                  <img src="${project.圖片}" alt="${project.圖片說明}" loading="lazy" />
+                </a>
+              </div>
+            </div>
+          `;
+        }
+
+        projectsHTML += "</div>";
+        projectsContainer.innerHTML = projectsHTML;
+      }
+
+      // 頁面載入後執行
+      document.addEventListener("DOMContentLoaded", function () {
+        // 先確保頁面已載入
+        document.body.classList.add("loaded");
+
+        // 顯示載入中訊息
+        document.getElementById("resume-header").innerHTML =
+          "<p style='text-align:center;'>資料載入中...</p>";
+
+        // 獲取履歷資料
+        console.log("開始載入履歷資料");
+        fetchResumeData();
+      });
+
+      // 回到頂部按鈕設定
+      const setupBackToTop = function () {
+        const backToTopButton = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 300) {
+            backToTopButton.classList.add("visible");
+          } else {
+            backToTopButton.classList.remove("visible");
+          }
+        });
+
+        backToTopButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      };
+
+      // 執行回到頂部按鈕設定
+      setupBackToTop();
+
+      // 圖片點擊預覽功能
+      const setupImagePreview = function () {
+        document.body.addEventListener("click", function (e) {
+          if (
+            e.target.tagName === "IMG" &&
+            !e.target.classList.contains("profile-picture") &&
+            !e.target.parentElement.classList.contains("contact-info")
+          ) {
+            const imgPreview = document.createElement("div");
+            imgPreview.classList.add("img-preview");
+
+            const img = document.createElement("img");
+            img.src = e.target.src;
+            img.alt = e.target.alt;
+
+            imgPreview.appendChild(img);
+            document.body.appendChild(imgPreview);
+
+            // 動畫效果
+            setTimeout(() => {
+              imgPreview.style.opacity = "1";
+              img.style.transform = "scale(1)";
+            }, 10);
+
+            // 點擊關閉預覽
+            imgPreview.addEventListener("click", function () {
+              imgPreview.style.opacity = "0";
+              setTimeout(() => {
+                document.body.removeChild(imgPreview);
+              }, 300);
+            });
+          }
+        });
+      };
+
+      // 執行圖片預覽設定
+      setupImagePreview();
+
+      // 從 data.js 渲染影片區塊
+      function renderVideos(videoData) {
+        if (!videoData || !Array.isArray(videoData) || videoData.length === 0) {
+          console.warn("沒有影片資料可渲染");
+          return;
+        }
+
+        const videosContainer = document.querySelector(".videos-row");
+        if (!videosContainer) {
+          console.error("找不到影片容器元素");
+          return;
+        }
+
+        // 清空現有內容
+        videosContainer.innerHTML = "";
+
+        // 渲染每個影片
+        videoData.forEach((video) => {
+          const videoColumn = document.createElement("div");
+          videoColumn.className = "video-column";
+
+          videoColumn.innerHTML = `
+            <div class="video-container">
+              <video
+                id="${video.id}"
+                class="demo-video"
+                controls
+                playsinline
+                preload="metadata"
+                poster="${video.海報圖片}"
+              >
+                <source
+                  data-src="${video.影片連結}"
+                  type="video/mp4"
+                />
+                您的瀏覽器不支援影片播放，請更新瀏覽器版本。
+              </video>
+            </div>
+            <div class="video-description">
+              <h3>${video.標題}</h3>
+              <p>${video.描述.replace(/\n/g, "<br>")}</p>
+            </div>
+          `;
+
+          videosContainer.appendChild(videoColumn);
+        });
+
+        // 初始化影片懶加載
+        initVideoLazyLoading();
+      }
+    </script>
+  </body>
+</html>

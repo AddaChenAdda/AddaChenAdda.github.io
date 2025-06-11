@@ -1,0 +1,32 @@
+/* 自定義 QR Code 樣式 */
+.qrcode-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.qrcode {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qrcode:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 調整頭部右側區域 */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+}
+
+.contact-info-container {
+  margin-bottom: 15px;
+}
