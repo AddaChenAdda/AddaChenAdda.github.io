@@ -11,7 +11,7 @@
 ## 如何訪問
 
 網站可以通過 https://addachenadda.github.io 訪問。
-履歷頁面可以通過 https://addachenadda.github.io/resume/ 直接訪問。
+履歷頁面可以通過 https://addachenadda.github.io/resume_7r3x9z/ 直接訪問。
 
 ## 技術實現
 

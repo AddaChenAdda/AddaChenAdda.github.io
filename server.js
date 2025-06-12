@@ -58,6 +58,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`伺服器執行在 http://localhost:${PORT}`);
   console.log(
-    `您可以透過 http://localhost:${PORT}/resume/index.html 訪問您的履歷`
+    `您可以透過 http://localhost:${PORT}/resume_7r3x9z/index.html 訪問您的履歷`
   );
 });
