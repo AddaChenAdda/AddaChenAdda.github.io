@@ -175,7 +175,7 @@ const resumeData = {
     {
       id: "demo-video-3",
       標題: "個股內頁行情顯示",
-      描述: "1. 日k顯示各種資訊\n2. 查價線資源滑動變更顯示\n3. 分時走勢漸層顯示\n4. 分時走勢Y軸客製化",
+      描述: "1. 日k顯示各種資訊\n2. 查價線支援滑動變更顯示\n3. 分時走勢漸層顯示\n4. 分時走勢Y軸客製化",
       影片連結:
         "https://firebasestorage.googleapis.com/v0/b/savepdf-2163f.appspot.com/o/demo3.mp4?alt=media&token=25f3672e-f8f0-4fd4-9690-a789252001dc",
       海報圖片: "images/thumbnail_3.jpg",
